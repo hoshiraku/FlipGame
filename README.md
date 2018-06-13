@@ -1,2 +1,2 @@
 # FlipGame 
-## A simple game of flipping cards
+### A simple game of flipping cards for iOS 11
