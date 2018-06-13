@@ -1,1 +1,2 @@
-#FlipGame - A simple game of flipping cards
+# FlipGame 
+## A simple game of flipping cards
