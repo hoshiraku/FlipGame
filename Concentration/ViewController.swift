@@ -45,11 +45,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var gameScoreLabel: UILabel!
     
     @IBAction func tapCard(_ sender: UIButton) {
-        flipCount += 1
+        //flipCount += 1
         if let cardNumber: Int = cardsCollection.index(of: sender){
             print("Card Number is : \(cardNumber)")
             game.chooseCard(at: cardNumber)
             gameScore = game.gameScorePoint
+            flipCount = game.flipCardCount
             //flipCard(withEmoji: emojiString[cardNumber], onButton: sender)
             //every time chose a card, the view need to be updated from model
             updateViewFromModel()
@@ -62,8 +63,10 @@ class ViewController: UIViewController {
     @IBAction func beginNewGame(_ sender: UIButton) {
         // how to begin a new game?...
         flipCount = 0
+        gameScore = 0
         game = Concentration(numberOfPairsOfCards: (cardsCollection.count + 1) / 2)
         //print(emojiChoices)
+        originalEmojiChoices = getOneEmojiChoice()
         emojiChoices = originalEmojiChoices
         updateViewFromModel()
     }
@@ -94,9 +97,35 @@ class ViewController: UIViewController {
     var emojiChoices = ["😑", "😬", "😆", "🙂", "😐", "😯","😦", "😉", "☺️", "🤤", "😴", "😠"]
     
     // TODO: add theme...
+    var emojiChoicesFace = ["😑", "😬", "😆", "🙂", "😐", "😯","😦", "😉", "☺️", "🤤", "😴", "😠"]
+    var emojiChoicesGesture = ["🤞", "✌️", "☝️", "👆", "🖕", "🤘", "👍", "🤙", "✋", "🤚", "✊", "👐"]
+    var emojiChoicesLove = ["💑", "👩‍❤️‍👩", "👨‍❤️‍👨", "💏", "👩‍❤️‍💋‍👩", "👨‍❤️‍💋‍👨", "👪", "👨‍👩‍👧", "👨‍👩‍👧‍👦", "👨‍👩‍👦‍👦", "👨‍👩‍👧‍👧", "👨‍👨‍👦", "👩‍👩‍👧", "👩‍👩‍👦", "👨‍👨‍👧"]
+    var emojiChoicesAnimal = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐯", "🦁", "🐮", "🐷", "🐧", "🐤", "🦆", "🦅", "🦇"]
+    var emojiChoicesFood = ["🍏", "🍊", "🍋", "🍒", "🍑", "🍍", "🥝", "🌶", "🍅", "🍆", "🌽", "🌭", "🥓", "🍙", "🍘"]
+    var emojiChoicesActivity = ["⚽️", "🏀", "🏈", "⚾️", "🎾", "🏐", "🎱", "🎿", "🎹", "🎮", "🎤", "🎬", "🎨", "🎻", "🎸"]
+    var emojiChoicesTravel = ["🚗", "🚎", "🚲", "🛵", "🚠", "🚄", "✈️", "🛳", "🎡", "🎢", "🎠", "⛱", "🏠", "🏘", "⛩"]
+    var emojiChoicesObjects = ["⌚️", "📱", "💻", "🖥", "🕹", "🖲", "💽", "📀", "🎥", "📹", "🎙", "⏱", "🔫", "🛡", "⚔️"]
     
     
     var emoji : Dictionary<Int, String> = [Int: String]()
+    
+    var emojiChoicesCollection: Array<Array<String>> = []
+    
+    //get a random theme
+    func getOneEmojiChoice() -> Array<String>{
+        emojiChoicesCollection.append(emojiChoicesFace)
+        emojiChoicesCollection.append(emojiChoicesGesture)
+        emojiChoicesCollection.append(emojiChoicesLove)
+        emojiChoicesCollection.append(emojiChoicesAnimal)
+        emojiChoicesCollection.append(emojiChoicesFood)
+        emojiChoicesCollection.append(emojiChoicesActivity)
+        emojiChoicesCollection.append(emojiChoicesTravel)
+        emojiChoicesCollection.append(emojiChoicesObjects)
+        let randomChoiceIndex = Int(arc4random_uniform(UInt32(emojiChoicesCollection.count)))
+        //originalEmojiChoices = emojiChoicesCollection[randomChoiceIndex]
+        //emojiChoices = emojiChoicesCollection[randomChoiceIndex]
+        return emojiChoicesCollection[randomChoiceIndex]
+    }
     
     func emoji(for card: Card) -> String{
         if emoji[card.indentify] == nil, emojiChoices.count > 0 {

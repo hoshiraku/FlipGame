@@ -19,6 +19,8 @@ class Concentration{
     
     // TODO: previous seen card missmatch and game score
     
+    var flipCardCount: Int = 0
+    
     func chooseCard(at index: Int){
         
 //        if cards[index].isFaceUpside == true{
@@ -26,6 +28,9 @@ class Concentration{
 //        }else{
 //            cards[index].isFaceUpside = true
 //        }
+        if !cards[index].isFaceUpside{
+            flipCardCount += 1
+        }
         if !cards[index].isMatched {
             //if already matched, do nothing, just ignore
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index{
@@ -36,7 +41,7 @@ class Concentration{
                     cards[matchIndex].isMatched = true
                     gameScorePoint += 2
                 } else{
-                    gameScorePoint -= 1
+                    //gameScorePoint -= 1
                 }
                 //if matched or not matched...
                 cards[index].isFaceUpside = true
@@ -61,6 +66,15 @@ class Concentration{
             let card = Card()
             cards += [card, card]
         }
-        // TODO: Shuffle the cards array....
+        // Shuffle the cards array....
+        var oldCards = cards
+        var shuffledCards = [Card]()
+        var randomNumber : Int
+        for _ in cards{
+            randomNumber = Int(arc4random_uniform(UInt32(oldCards.count - 1)))
+            shuffledCards.append(oldCards[randomNumber])
+            oldCards.remove(at: randomNumber)
+        }
+        cards = shuffledCards
     }
 }

@@ -12,6 +12,8 @@ struct Card {
     
     var isFaceUpside = false
     var isMatched = false
+    // TODO: add a property, if the card is previously mismatched...
+    var isTappedOnceWithMissmatch = false
     var indentify: Int
     
     static var identifyNumberFactory : Int = 0
