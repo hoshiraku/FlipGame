@@ -17,6 +17,8 @@ class Concentration{
     //add a game score
     var gameScorePoint: Int = 0
     
+    // TODO: previous seen card missmatch and game score
+    
     func chooseCard(at index: Int){
         
 //        if cards[index].isFaceUpside == true{

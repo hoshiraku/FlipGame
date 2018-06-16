@@ -63,6 +63,8 @@ class ViewController: UIViewController {
         // how to begin a new game?...
         flipCount = 0
         game = Concentration(numberOfPairsOfCards: (cardsCollection.count + 1) / 2)
+        //print(emojiChoices)
+        emojiChoices = originalEmojiChoices
         updateViewFromModel()
     }
     
@@ -87,8 +89,12 @@ class ViewController: UIViewController {
 //        //...
 //    }
     
+    var originalEmojiChoices = ["😑", "😬", "😆", "🙂", "😐", "😯","😦", "😉", "☺️", "🤤", "😴", "😠"]
+    
     var emojiChoices = ["😑", "😬", "😆", "🙂", "😐", "😯","😦", "😉", "☺️", "🤤", "😴", "😠"]
+    
     // TODO: add theme...
+    
     
     var emoji : Dictionary<Int, String> = [Int: String]()
     
