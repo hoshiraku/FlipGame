@@ -14,6 +14,9 @@ class Concentration{
     
     var indexOfOneAndOnlyFaceUpCard: Int?
     
+    //add a game score
+    var gameScorePoint: Int = 0
+    
     func chooseCard(at index: Int){
         
 //        if cards[index].isFaceUpside == true{
@@ -22,13 +25,16 @@ class Concentration{
 //            cards[index].isFaceUpside = true
 //        }
         if !cards[index].isMatched {
-            //if not matched, do nothing, just ignore
+            //if already matched, do nothing, just ignore
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index{
                 //check if cards match
                 if cards[matchIndex].indentify == cards[index].indentify{
                     //matched!
                     cards[index].isMatched = true
                     cards[matchIndex].isMatched = true
+                    gameScorePoint += 2
+                } else{
+                    gameScorePoint -= 1
                 }
                 //if matched or not matched...
                 cards[index].isFaceUpside = true

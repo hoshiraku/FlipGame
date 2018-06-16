@@ -20,9 +20,17 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //add flip number
     var flipCount: Int = 0 {
         didSet { // if flipCount changed, then excute the code below
             flipCountLabel.text = "Flips: \(flipCount)"
+        }
+    }
+    
+    //add game score
+    var gameScore: Int = 0 {
+        didSet{
+            gameScoreLabel.text = "Score: \(gameScore)"
         }
     }
 
@@ -34,11 +42,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var flipCountLabel: UILabel!
     
+    @IBOutlet weak var gameScoreLabel: UILabel!
+    
     @IBAction func tapCard(_ sender: UIButton) {
         flipCount += 1
         if let cardNumber: Int = cardsCollection.index(of: sender){
             print("Card Number is : \(cardNumber)")
             game.chooseCard(at: cardNumber)
+            gameScore = game.gameScorePoint
             //flipCard(withEmoji: emojiString[cardNumber], onButton: sender)
             //every time chose a card, the view need to be updated from model
             updateViewFromModel()
@@ -46,6 +57,13 @@ class ViewController: UIViewController {
         }else{
             print("The selected card is not in the card set.")
         }
+    }
+    
+    @IBAction func beginNewGame(_ sender: UIButton) {
+        // how to begin a new game?...
+        flipCount = 0
+        game = Concentration(numberOfPairsOfCards: (cardsCollection.count + 1) / 2)
+        updateViewFromModel()
     }
     
     func updateViewFromModel(){
@@ -65,11 +83,12 @@ class ViewController: UIViewController {
     }
     
     //begin a new game
-    func updateViewFromModelForNewGame() {
-        
-    }
+//    func updateViewFromModelForNewGame() {
+//        //...
+//    }
     
     var emojiChoices = ["😑", "😬", "😆", "🙂", "😐", "😯","😦", "😉", "☺️", "🤤", "😴", "😠"]
+    // TODO: add theme...
     
     var emoji : Dictionary<Int, String> = [Int: String]()
     
